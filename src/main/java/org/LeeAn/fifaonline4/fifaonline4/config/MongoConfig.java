@@ -1,0 +1,4 @@
+package org.LeeAn.fifaonline4.fifaonline4.config;
+
+public class MongoConfig {
+}
