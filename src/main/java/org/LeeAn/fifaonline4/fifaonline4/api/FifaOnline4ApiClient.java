@@ -1,6 +1,7 @@
 package org.LeeAn.fifaonline4.fifaonline4.api;
 
 
+import org.LeeAn.fifaonline4.fifaonline4.domain.Usernickname;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -8,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class FifaOnline4ApiClient {
     private final String user_nickname_url = "https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname={nickname}";
-    private final String user_accessid_url = "https://api.nexon.co.kr/fifaonline4/v1.0/users/{accessid}";
     private final String user_accessid_maxdivison_url = "https://api.nexon.co.kr/fifaonline4/v1.0/users/{accessid}/maxdivision";
     private final String user_matchtype_url = "https://api.nexon.co.kr/fifaonline4/v1.0/users/{accessid}/matches?matchtype={matchtype}&offset={offset}&limit={limit}";
     private final String user_tradetype_url = "https://api.nexon.co.kr/fifaonline4/v1.0/users/{accessid}/markets?tradetype={tradetype}&offset={offset}&limit={limit}";
