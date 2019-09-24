@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserTradeSellRecord {
     private String tradeDate;
     private String saleSn;
-    private int spid;
+    private int spId;
     private int grade;
     private int value;
 }
