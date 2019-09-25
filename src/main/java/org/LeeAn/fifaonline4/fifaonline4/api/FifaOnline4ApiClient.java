@@ -48,12 +48,12 @@ public class FifaOnline4ApiClient {
         return restTemplate.exchange(user_tradetype_url,HttpMethod.GET,entity,UserTradeBuyRecord.class,accessid,b_s,offSet,limit).getBody();
     }
 
-    public UserTradeSellRecord requestTradeSellRecord(String accessid,String b_s, int offSet, int limit){
+    public UserTradeSellRecord[] requestTradeSellRecord(String accessid,String b_s, int offSet, int limit){
         final HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization",api_key);
         final HttpEntity<String> entity = new HttpEntity<>(headers);
 
-        return restTemplate.exchange(user_tradetype_url,HttpMethod.GET,entity,UserTradeSellRecord.class,accessid,b_s,offSet,limit).getBody();
+        return restTemplate.exchange(user_tradetype_url,HttpMethod.GET,entity,UserTradeSellRecord[].class,accessid,b_s,offSet,limit).getBody();
     }
 
     public MatchDetail requestMatchDetail(String matchid){
