@@ -11,6 +11,6 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate createMongoTemplate(){
-        return new MongoTemplate(new MongoClient(), "fifaonline4-api");
+        return new MongoTemplate(new MongoClient(), "fifaonline-top10000");
     }
 }

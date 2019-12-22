@@ -1,21 +1,15 @@
 package org.LeeAn.fifaonline4.fifaonline4.domain;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Data
 public class TopRankerUsingAverage {
-    @Id
-    private RankerPlayerDTO rankerPlayerDTO;
-    private RankerPlayerStatDTO rankerPlayerStatDTO;
 
-    @Data
-    public static class RankerPlayerDTO{
-        private int spId;
-        private int spPosition;
-        private RankerPlayerStatDTO status;
-        private String createDate;
-    }
+    private int spId;
+    private int spPosition;
+    private RankerPlayerStatDTO status;
+    private String createDate;
+
 
     @Data
     public static class RankerPlayerStatDTO{
