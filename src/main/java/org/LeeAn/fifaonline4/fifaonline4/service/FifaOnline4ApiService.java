@@ -72,6 +72,7 @@ public class FifaOnline4ApiService {
         }
         else{
             System.out.println("fail");
+            System.exit(0);
         }
     }
 }
