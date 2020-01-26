@@ -4,8 +4,6 @@ package org.LeeAn.fifaonline4.fifaonline4.service;
 import lombok.extern.slf4j.Slf4j;
 import org.LeeAn.fifaonline4.fifaonline4.api.FifaOnline4ApiClient;
 import org.LeeAn.fifaonline4.fifaonline4.domain.TopRankerUsingAverage;
-import org.LeeAn.fifaonline4.fifaonline4.domain.UserTradeSellRecord;
-import org.LeeAn.fifaonline4.fifaonline4.domain.Usernickname;
 import org.LeeAn.fifaonline4.fifaonline4.repository.FifaOnline4ApiRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 
 @Service
@@ -31,6 +30,7 @@ public class FifaOnline4ApiService {
 
     Long[] arr = null;
     JSONParser parser = new JSONParser();
+    FifaOnline4ApiShellExecute fifaOnline4ApiShellExecute = new FifaOnline4ApiShellExecute();
     JSONArray jsonArray = null;
     int index = 0;
     {
@@ -48,31 +48,43 @@ public class FifaOnline4ApiService {
         }
     }
 
-    @Scheduled(fixedDelay = 1L)
+    @Scheduled(cron = "0 0 3 * * *")
+    public void callAPImethod(){
+        getFifaOnline4Api();
+        index = 0;
+        return;
+    }
+
     public void getFifaOnline4Api() {
 //        Usernickname usernickname = fifaOnline4ApiClient.requestUser("아주대학교");
 //        UserTradeSellRecord[] userTradeSellRecord = fifaOnline4ApiClient.requestTradeSellRecord(usernickname.getAccessId(), "sell", 0, 20);
 //        fifaOnline4ApiRepository.insertUserTradeSellRecord(userTradeSellRecord);
 //        log.info("fifaonline4 api has been inserted successfully. {}", userTradeSellRecord);
-        if(index<jsonArray.size()-1) {
-            JSONArray infoArray = new JSONArray();
-            int temp = index+5;
-            while(index<temp){
-                for(int j=1;j<29;j++){
-                    JSONObject info = new JSONObject();
-                    info.put("id",arr[index]);
-                    info.put("po",j);
-                    infoArray.add(info);
+        while(index<jsonArray.size()-1){
+            try{
+                JSONArray infoArray = new JSONArray();
+                int temp = index+5;
+                while(index<temp){
+                    for(int j=1;j<29;j++){
+                        JSONObject info = new JSONObject();
+                        info.put("id",arr[index]);
+                        info.put("po",j);
+                        infoArray.add(info);
+                    }
+                    index = index+1;
                 }
-                index = index+1;
+                TopRankerUsingAverage[] topRankerUsingAverages = fifaOnline4ApiClient.requestTopRankerUsingAverage(50,infoArray);
+                fifaOnline4ApiRepository.insertTopRankerUsingAverage(topRankerUsingAverages);
+                log.info("success"+index,topRankerUsingAverages);
+            } catch(Exception e){
+                for(int k=index-5;k<index;k++){
+                    System.out.println(arr[k]);
+                }
             }
-            TopRankerUsingAverage[] topRankerUsingAverages = fifaOnline4ApiClient.requestTopRankerUsingAverage(50,infoArray);
-            fifaOnline4ApiRepository.insertTopRankerUsingAverage(topRankerUsingAverages);
-            log.info("success"+index,topRankerUsingAverages);
         }
-        else{
-            System.out.println("fail");
-            System.exit(0);
-        }
+        String cmds = "sh /home/ec2-user/springboot/test.sh";
+        String[] callCmd = {"/bin/bash", "-c", cmds};
+        Map map = fifaOnline4ApiShellExecute.execCommand(callCmd);
+        System.out.println(map);
     }
 }
