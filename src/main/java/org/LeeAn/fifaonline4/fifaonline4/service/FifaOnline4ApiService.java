@@ -75,12 +75,12 @@ public class FifaOnline4ApiService {
                 }
                 TopRankerUsingAverage[] topRankerUsingAverages = fifaOnline4ApiClient.requestTopRankerUsingAverage(50,infoArray);
                 fifaOnline4ApiRepository.insertTopRankerUsingAverage(topRankerUsingAverages);
-                log.info("success"+index,topRankerUsingAverages);
             } catch(Exception e){
                 for(int k=index-5;k<index;k++){
                     System.out.println(arr[k]);
                 }
             }
+            log.info("success");
         }
         String cmds = "sh /home/ec2-user/springboot/test.sh";
         String[] callCmd = {"/bin/bash", "-c", cmds};
