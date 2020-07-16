@@ -80,8 +80,8 @@ public class FifaOnline4ApiService {
                     System.out.println(arr[k]);
                 }
             }
-            log.info("success");
         }
+        log.info("success");
         String cmds = "sh /home/ec2-user/springboot/test.sh";
         String[] callCmd = {"/bin/bash", "-c", cmds};
         Map map = fifaOnline4ApiShellExecute.execCommand(callCmd);
